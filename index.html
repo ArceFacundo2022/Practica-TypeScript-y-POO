@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Practica POO</title>
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h1>Actividad Practica De POO</h1>
+      </header>
+      <main>
+        <form name="ListTask">
+          <fieldset>
+            <legend>Ejercicio 01: <b>Lista de Tareas / TO-DO List</b></legend>
+            <div class="column">
+              <div class="component comp01">
+                <pre>
+<label for="title"><b>Titulo</b></label>
+<input type="text" id="title">
+<label for="description"><b>Descripcion</b></label>
+<textarea id="description"></textarea>
+<label for="ExpiredDate"><b>Fecha de vencimiento</b></label>
+<input type="date" id="expiredDate">
+<input type="button" id="addTask" value="Enviar ☑️">
+                </pre>
+              </div>
+              <div id="divTask" class="component comp01">
+                <h2>Tareas</h2>
+                <hr>
+  
+              </div>
+            </div>
+          </fieldset>
+        </form>
+        <br>
+        <form name="Calculadora">
+          <fieldset>
+            <legend>Ejercicio 02: <b>Calculadora de geometria</b></legend>
+            <div class="column">
+              <div class="component comp02">
+                <pre>
+<h2 id="figure">Rectangulo</h2>
+<hr>
+<label id="labelBase" for="base"><b>Base</b></label>
+<input type="number" id="base">
+<label id="labelHeight" for="height"><b>Altura</b></label>
+<input type="number" id="height">
+<label hidden="true" id="labelRadio" for="radio"><b>Radio</b></label>
+<input hidden="true" type="number" id="radio">
+<hr>
+<input type="button" id="triangle" value="🔼"> | <input type="button" id="rectangle" value="🟦"> | <input type="button" id="circle" value="🔵">
+<hr>
+<input type="button" id="addGeometry" value="Enviar ☑️">
+                </pre>
+              </div>
+              <div class="component comp03">
+                <nav class="subComponent">
+                  <h1>GEOMETRIAS</h1>
+                </nav>
+                <div id="listGeometry" class="column">
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+        <br>
+        <form name="Biblioteca">
+          <fieldset>
+            <legend>Ejercicio 03: <b>Biblioteca Virtual</b></legend>
+            <div class="column">
+              <div class="component comp02">
+                <pre>
+<label for="bookTitle"><b>Titulo</b></label>
+<input type="text" id="bookTitle">
+<label for="bookDescription"><b>Descripcion</b></label>
+<textarea id="bookDescription"></textarea>
+<label for="autor"><b>Autor</b></label>
+<input type="text" id="autor">
+<input type="button" id="addBook" value="Enviar ☑️">
+                </pre>
+              </div>
+              <div id="disponibles" class="component comp02">
+                <h2>Disponibles</h2>
+                <hr>
+              </div>
+              <div id="prestados" class="component comp02">
+                <h2>Prestados</h2>
+                <hr>
+  
+              </div>
+            </div>
+          </fieldset>
+        </form>
+        <br>
+        <form name="Mascota">
+          <fieldset>
+            <legend>Ejercicio 04: <b>Simulador de Mascota Virtual</b></legend>
+          </fieldset>
+        </form>
+        <br>
+        <form name="Contacto">
+          <fieldset>
+            <legend>Ejercicio 05: <b>Gestor de contactos</b></legend>
+            <div class="column">
+              <div class="component comp02">
+                <pre>
+<label for="name"><b>Nombre</b></label>
+<input type="text" id="name">
+<label for="email"><b>Correo Electronico</b></label>
+<input type="email" id="email">
+<label for="tel"><b>telefono</b></label>
+<input type="number" id="tel">
+<input type="button" id="addContact" value="Enviar ☑️">
+                </pre>
+              </div>
+              <div class="component comp03">
+                <nav class="subComponent">
+                  <label>
+                    <input type="text" id="search" placeholder="Busca tu contacto"> | <input type="button" id="SearchButton" value="BUSCAR 🔍">
+                  </label>
+                </nav>
+                <div id="listContact" class="column">
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+        <br>
+      </main>
+      <footer>
+
+      </footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+    <style>
+      header{
+        background-color: #f7edd1;
+      }
+      body{
+        background-image: url(https://thumbs.dreamstime.com/b/abandone-el-fondo-incons%C3%BAtil-del-modelo-de-la-flor-en-tono-marr%C3%B3n-y-poner-crema-desierto-103693324.jpg);
+      }
+      form {
+        background-color: #f7edd1;
+      }
+      
+      .column {
+    max-width: 1100px; /* Cambia esto según tus necesidades */
+    margin: 0 auto; /* Centrar el contenedor en la página */
+    display: flex; /* Utilizar flexbox para distribuir en columnas */
+    flex-wrap: wrap; /* Permitir que los elementos fluyan a la siguiente fila si no caben en una columna */
+    justify-content: space-between; /* Distribuir los elementos con espacio entre ellos */
+    }
+
+    /* Estilo de los componentes */
+    .component {
+        margin-bottom: 20px; /* Espacio entre los componentes */
+        padding: 10px; /* Relleno interno para los componentes */
+        border: 1px solid #ccc; /* Borde para los componentes */
+        box-sizing: border-box; /* Incluir el borde en el cálculo del ancho */
+        text-align: center; /* Centrar el contenido de los componentes */
+        background-color: #f2f2f2; /* Color de fondo de los componentes */
+    }
+
+    .subComponent {
+        margin-bottom: 20px; /* Espacio entre los componentes */
+        padding: 10px; /* Relleno interno para los componentes */
+        border: 1px solid #d8d3c5; /* Borde para los componentes */
+        box-sizing: border-box; /* Incluir el borde en el cálculo del ancho */
+        text-align: center; /* Centrar el contenido de los componentes */
+        background-color: #f7f2e4; /* Color de fondo de los componentes */
+    }
+
+    .comp01{
+      width: calc(50% - 10px); /* Calcular el ancho de cada componente en función del número de columnas */
+    }
+
+    .comp02{
+      width: calc(33.33% - 10px); /* Calcular el ancho de cada componente en función del número de columnas */
+    }
+
+    .comp03{
+      width: calc(66.66% - 10px); /* Calcular el ancho de cada componente en función del número de columnas */
+    }
+    .comp04{
+      width: calc(20% - 10px); /* Calcular el ancho de cada componente en función del número de columnas */
+    }
+
+    .Estado{
+      color: #150ee3;
+    }
+      </style>
+  </body>
+</html>
