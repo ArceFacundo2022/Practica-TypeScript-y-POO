@@ -92,11 +92,11 @@ class Circle implements Geometry{
 
   getArea(): number {
     
-    return Math.PI * (this.radio ** 2)
+    return Math.round(Math.PI * (this.radio ** 2))
   }
 
   getPerimetro(): number {
-    return (Math.PI * 2) * this.radio    
+    return Math.round((Math.PI * 2) * this.radio)    
   }
 
   getType(): Figuras {
@@ -116,12 +116,9 @@ class Triangle implements Geometry{
     return (this.height * this.base) / 2
   }
   getPerimetro(): number {
-    let c = Math.sqrt((this.base ** 2)-(this.height ** 2))
+    let c = Math.sqrt((this.base ** 2)+(this.height ** 2))
     let result = this.base + this.height + c
-    if (result < 0){
-      result = -(result)
-    }
-    return result
+    return Math.round(result)
   }
 
   getType(): Figuras {
@@ -213,6 +210,7 @@ const addGeometry = () => {
     const labelBase = document.getElementById('labelBase') as HTMLLabelElement
     const labelHeight = document.getElementById('labelHeight') as HTMLLabelElement
     const labelRadio = document.getElementById('labelRadio') as HTMLLabelElement
+    const title = document.getElementById('figure') as HTMLHeadElement
 
     if (option == "Circle"){
       inputRadio.hidden = false
@@ -221,6 +219,7 @@ const addGeometry = () => {
       labelBase.hidden = true
       inputHeight.hidden = true
       labelHeight.hidden = true
+      title.innerText = "Circle"
       figure = "Circle"
     }else {
       inputBase.hidden = false
@@ -229,6 +228,7 @@ const addGeometry = () => {
       labelHeight.hidden = false
       inputRadio.hidden = true
       labelRadio.hidden = true
+      title.innerText = option
       figure = option
     }
   }
