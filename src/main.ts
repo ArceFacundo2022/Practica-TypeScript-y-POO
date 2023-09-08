@@ -327,6 +327,221 @@ document.querySelector<HTMLButtonElement>('#addBook')!.addEventListener('click',
 
 //! ---------------------------- ( MASCOTA VIRTUAL ) -------------------------------------
 
+const PetHome: (Perro) [] = []
+
+type relacion = "Distante" | "Desinteresado" | "Neutral" | "Interesado" | "Afectivo" | "Encariñado"
+type pets = "Perro" | "Gato"
+
+interface infoPet {
+  lvlApego: number,
+  apego: relacion,
+  energia: number,
+  petName?: string,
+  type: pets,
+  img : string
+}
+
+let pet:pets = "Perro"
+
+class Mascota {
+  private lvlApego: number
+  private apego: relacion
+  private energia: number
+  constructor(private petname: string){
+    this.apego = "Distante",
+    this.lvlApego = 0
+    this.energia = 100
+  }
+  emitirSonido() {
+    return "Sonido default 🤷‍♂️"
+  }
+
+  comer(PointE: number) {
+    if(this.energia == 100){
+      alert(`${this.petname} No tiene hambre 🐾 `)
+      return false
+    }
+    this.energia += PointE
+    this.subirApego(5)
+    if(this.energia > 100){
+      this.energia = 100
+    }
+    alert(`${this.petname} Agradece la comida 🐶`)
+    return true
+  }
+
+  subirApego(lvl:number) {
+    this.lvlApego += lvl
+    if(this.lvlApego > 100){
+      this.lvlApego = 100
+    }
+    if(this.lvlApego > 15){
+      if(this.lvlApego > 30){
+        if(this.lvlApego > 45){
+          if(this.lvlApego > 60){
+            if(this.lvlApego > 75){
+              this.apego = "Encariñado"
+            }else{
+              this.apego = "Afectivo"
+            }
+          }else{
+            this.apego = "Interesado"
+          }
+        }else{
+          this.apego = "Neutral"
+        }
+      }else{
+        this.apego = "Desinteresado"
+      }
+    }
+    return this.apego
+  }
+
+  Desgaste(gasto: number) {
+    this.energia -= gasto
+    if(this.energia < 0){
+      this.energia = 0
+    }
+  }
+
+  getEnergia(){
+    return this.energia
+  }
+
+  getInfo(type:pets, img: string):infoPet {
+    return {
+      lvlApego: this.lvlApego,
+      apego: this.apego,
+      energia: this.energia,
+      petName: this.petname,
+      type,
+      img
+    }
+  }
+}
+
+class Terrestre extends Mascota {
+
+  constructor(petName: string){
+    super(petName)
+  }
+
+  Caminar(){
+    if(this.getEnergia() < 10){
+      return false
+    }
+    this.Desgaste(10)
+    this.subirApego(2)
+    return true
+  }
+
+  correr(){
+      if(this.getEnergia() < 20){
+        return false
+      }
+      this.Desgaste(20)
+      this.subirApego(5)
+      return true
+    }
+}
+
+class Perro extends Terrestre {
+  type: pets
+  img : string
+  constructor(petName:string){
+    super(petName)
+    this.type = "Perro"
+    this.img = "../public/img/Dog.jpg"
+  }
+
+  Pasear(){
+    const info: infoPet = this.getInfo(this.type,this.img)
+    if(this.Caminar()){
+      alert(`${info.petName} se divirtio paseando 🐕‍🦺`)
+    }else{
+      alert(`${info.petName} esta demaciado cansado 💤`)
+    }
+  }
+
+  BuscarLaPelota(){
+    const info: infoPet = this.getInfo(this.type,this.img)
+    if(this.correr()){
+      alert(`${info.petName} se divirtio jugando 🐕`)
+    }else{
+      alert(`${info.petName} esta demaciado cansado 💤`)
+    }
+  }
+}
+
+const addPet = () =>{
+
+  const inputName = document.getElementById('PetName') as HTMLInputElement
+  let newPet: Perro
+
+  switch(pet){
+    case "Perro":
+      newPet = new Perro(inputName.value)
+      PetHome.push(newPet)
+      showPets()
+      break
+    case "Gato":
+      break
+    default:
+      return false
+  }
+}
+
+const showPets = () => {
+
+  if (PetHome.length == 0){
+    return false
+  }
+
+  const listPets = document.getElementById('listPets') as HTMLDivElement
+  let htmlPets: string = `
+  `
+  PetHome.forEach( (pot, indice) => {
+    const info: infoPet = pot.getInfo(pot.type,pot.img)
+      htmlPets += `
+      <div class="subComponent comp01">
+                  <h2>${info.petName}</h2>
+                  <img src="${info.img}" width="150px" height="150px">
+                  <p><b>Apego: </b>${info.apego}</p>
+                  <p><b>Lvl: </b><input type="range" value="${info.lvlApego}" min="0" max="100" step="1" onInput="this.nextElementSibling.value = this.value" disabled><output>${info.lvlApego}</output></p>
+                  <p><b>Energia: </b><input type="range" value="${info.energia}" min="0" max="100" step="1" onInput="this.nextElementSibling.value = this.value" disabled><output>${info.energia}</output></p>
+                  <hr>
+                  <input type="button" id="Paseo${indice}" value="Pasear 🐕‍🦺" onclick="">  |  <input type="button" id="BuscarLaPelota${indice}" value="Jugar 🐕" onclick="">  |  <input type="button" id="Comer${indice}" value="Comer 🍖" onclick="">
+                </div>
+      `
+    })
+
+  listPets.innerHTML = htmlPets
+
+  PetHome.forEach((pot,indice) => {
+      document.querySelector<HTMLButtonElement>(`#Paseo${indice}`)!.addEventListener('click', () => {
+        console.log('1')
+        pot.Pasear()
+        showPets()
+      });
+      document.querySelector<HTMLButtonElement>(`#BuscarLaPelota${indice}`)!.addEventListener('click', () => {
+        console.log('2')
+        pot.BuscarLaPelota()
+        showPets()
+      });
+      document.querySelector<HTMLButtonElement>(`#Comer${indice}`)!.addEventListener('click', () => {
+        console.log('3')
+        pot.comer(50)
+        showPets()
+      });
+    })
+  return true
+}
+
+document.querySelector<HTMLButtonElement>('#addPet')!.addEventListener('click', () => {
+  console.log("0")
+  addPet();
+});
+
 //! ---------------------------- ( GESTION DE CONTACTOS ) -------------------------------------
 
 import { Contacto, contact } from "./classes/E5-Contactos"
@@ -340,8 +555,6 @@ const addContact = () =>{
   const inputName = document.getElementById('name') as HTMLInputElement
   const inputEmail = document.getElementById('email') as HTMLInputElement
   const inputTelefono = document.getElementById('tel') as HTMLInputElement
-
-  console.log(inputEmail.value)
 
   const newContact = new Contacto(inputName.value, inputEmail.value, parseInt(inputTelefono.value))
   agenda.push(newContact)
